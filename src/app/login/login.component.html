@@ -1,0 +1,17 @@
+<!-- User Name : <input type="text" name="username" id="username" value="{{username}}"/>
+Password : <input type="password" name="password" id="password" value="{{password}}"/> -->
+
+<h1>Login</h1>
+<div class="container">
+<div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
+<form #loginForm="ngForm" (ngSubmit)="loginForm.valid && handleJwtAuthLogin()">
+User Name : <input type="text" name="username" id="username" [(ngModel)]="username" />
+Password : <input type="password" name="password" id="password" [(ngModel)]="password" />
+
+<!-- <div>
+  <p>tu sei {{username}}
+  </p>
+</div> -->
+<button class="btn btn-success">Login</button>
+</form>
+</div>

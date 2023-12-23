@@ -20,7 +20,24 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `ng e2e --webdriverUpdate=false` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+Scaricare il chromedriver relativo alla versione di chrome installata in ('C:\Users\f.falqui\AppData\Roaming\npm\node_modules\webdriver-manager\selenium')
+comandi
+
+`cd node_modules\protractor\bin`
+`webdriver-manager update --versions.chrome=118.0.5993.70 --ignore_ssl=true`
+
+Copiare il compilato exe e l'archivio in ('D:\angular-spring\frontend\todo-new\node_modules\protractor\node_modules\webdriver-manager\selenium')
+
+Aggiungere nel file e2e/protractor.conf.js  
+`
+exports.config = {
+  ...
+  chromeDriver: '../node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_118.0.5993.70.exe',
+  ...
+`
+
 
 ## Further help
 
