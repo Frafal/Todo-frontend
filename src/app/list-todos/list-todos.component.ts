@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TodoDataService } from '../service/data/todo-data.service';
 import { Router } from '@angular/router';
 import { Todo } from '../todo/todo.component';
+import { JwtAuthenticationService } from '../service/jwt-authentication.service';
 
 
 @Component({
@@ -15,14 +16,15 @@ export class ListTodosComponent implements OnInit {
   //   new Todo(1,'Learn to Dance', false, new Date()),	
   message : string;
   
-  constructor( private todoService:TodoDataService , private router:Router) { }
+  constructor( private todoService:TodoDataService
+    ,private jwtauthenticationService:JwtAuthenticationService, private router:Router) { }
 
   ngOnInit() {
     this.refreshTodos();
   }
 
   refreshTodos(){
-    this.todoService.retriveAllTodos('user').subscribe(
+    this.todoService.retriveAllTodos(this.jwtauthenticationService.getAuthenticatedUser()).subscribe(
       response => {
         this.todos = response;
       }
@@ -30,7 +32,7 @@ export class ListTodosComponent implements OnInit {
   }
 
   deleteTodo(id:number){
-    this.todoService.deleteTodo('user', id).subscribe(
+    this.todoService.deleteTodo(this.jwtauthenticationService.getAuthenticatedUser(), id).subscribe(
       response => {
         // console.log(response);
         this.message = `Delete of Todo ${id} Successful!`;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoDataService } from '../service/data/todo-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { JwtAuthenticationService } from '../service/jwt-authentication.service';
 
 export class Todo {
   constructor(
@@ -24,6 +25,7 @@ export class TodoComponent implements OnInit {
 
   constructor(
     private todoService: TodoDataService,
+    private jwtauthenticationService:JwtAuthenticationService,
     private route: ActivatedRoute,
     private router: Router
     ) { }
@@ -32,7 +34,7 @@ export class TodoComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.todo = new Todo(this.id, '', '', new Date(), false);
     if(this.id != -1){
-      this.todoService.retriveTodo('user', this.id).subscribe(
+      this.todoService.retriveTodo(this.jwtauthenticationService.getAuthenticatedUser(), this.id).subscribe(
           data => this.todo = data
             // ,response => console.log(response)
       )
@@ -41,13 +43,13 @@ export class TodoComponent implements OnInit {
 
   saveTodo(){
     if(this.id == -1){
-      this.todoService.createTodo('user', this.todo).subscribe(
+      this.todoService.createTodo(this.jwtauthenticationService.getAuthenticatedUser(), this.todo).subscribe(
         data => 
           this.router.navigate(['todos'])
 
       )
     } else {
-      this.todoService.updateTodo('user', this.id, this.todo).subscribe(
+      this.todoService.updateTodo(this.jwtauthenticationService.getAuthenticatedUser(), this.id, this.todo).subscribe(
         data => 
           this.router.navigate(['todos'])
       )

@@ -24,7 +24,8 @@ export class JwtAuthenticationService {
                   map(
                     data => {
                       sessionStorage.setItem(AUTHENTICATED_USER, username);
-                      sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
+                      var token = data.access_token.trim().replace(/\n/g, "");
+                      sessionStorage.setItem(TOKEN, `Bearer ${token}`);
                       return data;
                     }
                   )
@@ -45,6 +46,8 @@ export class JwtAuthenticationService {
     let user = sessionStorage.getItem(AUTHENTICATED_USER)
     return !(user === null)
   }
+
+  // executeJwtLogoutService(
 
   logout(){
     sessionStorage.removeItem(AUTHENTICATED_USER)
