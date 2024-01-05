@@ -1,0 +1,24 @@
+<!-- User Name : <input type="text" name="username" id="username" value="{{username}}"/>
+Password : <input type="password" name="password" id="password" value="{{password}}"/> -->
+
+<h1>Login</h1>
+<div class="container">
+  @if(!isUserLoggedIn()){
+    <div class="alert alert-warning">{{notLoggedInMessage}}</div>
+    <button class="btn btn-success" type="button" (click)="initSession()">Login</button>
+  }@else{
+    <div>
+      <p>Benvenuto {{getUsername()}}</p>
+    </div>
+  }
+<!-- <form #loginForm="ngForm" (ngSubmit)="loginForm.valid && handleJwtAuthLogin()">
+User Name : <input type="text" name="username" id="username" [(ngModel)]="username" />
+Password : <input type="password" name="password" id="password" [(ngModel)]="password" /> -->
+
+<!-- <div>
+  <p>tu sei {{username}}
+  </p>
+</div> -->
+
+<!-- </form> -->
+</div>

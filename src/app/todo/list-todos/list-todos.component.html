@@ -1,0 +1,43 @@
+<h1>My Todo's</h1>
+@if(message) {
+  <div class="alert alert-success">{{message}}</div>
+
+}
+
+<div class="container">
+<table class="table">
+  <!-- <caption>My todo's</caption> -->
+  <thead>
+    <tr>
+      <!-- <th>id</th> -->
+      <th>Description</th>
+      <th>Target Data</th>
+      <th>Is Completed</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- for (Todo todo : todos) -->
+    @for(todo of todos; track todo.id){
+      <tr>
+        <!-- <td>{{todo.id}}</td> -->
+        <td>{{todo.description}}</td>
+        <td>{{todo.targetDate | date | uppercase}}</td>
+        <td>{{todo.done}}</td>
+        <td><button (click)="updateTodo(todo.id)" class="btn btn-warning">Update</button></td>
+        <td><button (click)="deleteTodo(todo.id)" class="btn btn-danger">Delete</button></td>
+      </tr>
+    }
+    
+    <!-- <tr *ngFor="let todo of todos"> -->
+      
+  </tbody>
+  
+</table>
+
+<div class="row">
+  <button class="btn btn-success" (click)="addTodo()">Add Todo</button>
+</div>
+
+</div>
